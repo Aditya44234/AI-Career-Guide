@@ -1,11 +1,11 @@
 const axios = require("axios");
 
-const model = "gemini-2.0-flash"; // You can switch this to gemini-pro or others
-const apiKey = process.env.GEMINI_API_KEY;
-const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
-
 // Extract role, skills, interests
 const extractResumeInsights = async (resumeText) => {
+    const apiKey = process.env.GEMINI_API_KEY;
+    const model = "gemini-2.0-flash"; // You can switch this to gemini-pro or others
+    const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
+
     const prompt = `
 You are an expert career assistant. Given the following resume text, extract three things:
 1. The candidate's most relevant job role (e.g., Frontend Developer, Data Analyst)
@@ -47,6 +47,9 @@ ${resumeText}
 
 // Map domains to related skills
 const mapResumeDomains = async (resumeText) => {
+    const apiKey = process.env.GEMINI_API_KEY;
+    const model = "gemini-2.0-flash"; // You can switch this to gemini-pro or others
+    const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
     const prompt = `
 From the resume below, identify relevant domains (e.g., Web Development, Databases, Cloud, UI Design, etc.) and map each domain to the technical skills mentioned in the resume that belong to it.
 

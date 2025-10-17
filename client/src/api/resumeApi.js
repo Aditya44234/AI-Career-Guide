@@ -2,7 +2,7 @@ import axios from "axios"
 
 const BASE = import.meta.env.VITE_API_BASE || "http://localhost:5000/api";
 
-export const parse = async (resumeText) => {
+export const parseResume = async (resumeText) => {
     const res = await axios.post(`${BASE}/resume/parse`, { resumeText })
     return res.data;
 }
