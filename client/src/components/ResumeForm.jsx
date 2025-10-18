@@ -7,6 +7,7 @@ import { Upload, FileText, CheckCircle, AlertCircle } from "lucide-react";
 
 export const ResumeForm = () => {
   const { setResumeData } = useResume();
+  const { setResumeText } = useResume();
   const [file, setFile] = useState(null);
   const [loading, setLoading] = useState(false);
   const [dragActive, setDragActive] = useState(false);
@@ -74,12 +75,12 @@ export const ResumeForm = () => {
 
     try {
       const text = await pdfToText(file);
+      setResumeText(text);
       const parsed = await parseResume(text);
       console.log("Parsed resume:", parsed);
-
       setResumeData(parsed);
+      
       localStorage.setItem("resumeData", JSON.stringify(parsed));
-
       navigate("/results");
     } catch (err) {
       console.error("Resume parsing failed:", err.message);
@@ -97,7 +98,7 @@ export const ResumeForm = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-purple-50 py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-indigo-400 rounded-sm py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-2xl mx-auto">
         {/* Header Section */}
 

@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 
+import { MapPin, BriefcaseBusiness } from "lucide-react";
+
 const JobCard = ({
   title,
   company,
@@ -101,10 +103,16 @@ const JobCard = ({
                 {title}
               </h2>
               <div className="flex items-center gap-4 text-gray-600">
+                <span>
+                  <BriefcaseBusiness size={20} />
+                </span>
+
                 <p className="font-semibold text-gray-800">{company}</p>
                 <span className="text-gray-300">•</span>
                 <p className="text-sm flex items-center gap-1">
-                  <span>📍</span>
+                  <span>
+                    <MapPin size={20} />
+                  </span>
                   {location}
                 </p>
               </div>

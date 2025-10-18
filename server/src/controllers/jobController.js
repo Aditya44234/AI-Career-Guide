@@ -1,6 +1,7 @@
 const { fetchJobsFromJsearch } = require("../services/jsearchService")
-
 const { mapJSearchArray } = require("../utils/responseMapper")
+const { mapResumeDomains } = require("../services/geminiService")
+
 
 const searchJobs = async (req, res) => {
     try {
@@ -19,4 +20,17 @@ const searchJobs = async (req, res) => {
     }
 }
 
-module.exports = { searchJobs };
+const analyzeDomains = async (req, res) => {
+    try {
+        const { resumeText } = req.body;
+        const analyzeResume = await mapResumeDomains(resumeText);
+        console.log(analyzeResume)
+        res.json({ status: "success", analyzeResume })
+    } catch (error) {
+        console.error("Resume analysis  error :", error.message)
+        res.status(500).json({ status: "error", message: "Resume analysis falied" })
+
+    }
+}
+
+module.exports = { searchJobs, analyzeDomains };

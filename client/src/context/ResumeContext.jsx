@@ -4,9 +4,12 @@ const ResumeContext = createContext();
 
 export const ResumeProvider = ({ children }) => {
   const [resumeData, setResumeData] = useState(null);
+  const [resumeText, setResumeText] = useState("");
 
   return (
-    <ResumeContext.Provider value={{ resumeData, setResumeData }}>
+    <ResumeContext.Provider
+      value={{ resumeData, setResumeData, resumeText, setResumeText }}
+    >
       {children}
     </ResumeContext.Provider>
   );

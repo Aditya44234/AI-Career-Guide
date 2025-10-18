@@ -8,8 +8,8 @@ export const parseResume = async (resumeText) => {
 }
 
 
-export const analyzeRumse = async (resumeText) => {
-    const res = await axios.post(`${BASE}/resume/analyze`, { resumeText })
+export const analyzeResume = async (resumeText) => {
+    const res = await axios.post(`${BASE}/jobs/analyze`, { resumeText })
     return res.data;
 }
 
