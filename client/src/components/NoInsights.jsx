@@ -1,6 +1,6 @@
 import React from "react";
 
-const NoJobs = () => {
+const NoInsights = () => {
   return (
     <div className="w-full min-h-screen flex items-center justify-center px-4">
       <div className="text-center max-w-md">
@@ -22,19 +22,18 @@ const NoJobs = () => {
         </div>
 
         {/* Message */}
-        <h2 className="text-2xl font-bold text-gray-800 mb-3">No Jobs Found</h2>
+        <h2 className="text-2xl font-bold text-gray-800 mb-3">No Insights Found</h2>
         <p className="text-white  mb-6 leading-relaxed">
-          We couldn't find any matching positions at the moment. Try adjusting
-          your search or check back later for new opportunities.
+          We couldn't find any insights for now
         </p>
 
         {/* Suggestions */}
         <div className="bg-indigo-50 rounded-lg p-4 text-left">
           <p className="text-sm font-semibold text-indigo-900 mb-2">Tips:</p>
           <ul className="text-sm text-indigo-700 space-y-1">
-            <li>• Update your profile with new skills</li>
-            <li>• Broaden your search criteria</li>
-            <li>• Check back for fresh postings</li>
+            <li>• Try uploading the resume first</li>
+            <li>• The file must be a RESUME only</li>
+            <li>• Must have some resume related data in your file</li>
           </ul>
         </div>
       </div>
@@ -42,4 +41,4 @@ const NoJobs = () => {
   );
 };
 
-export default NoJobs;
+export default NoInsights;

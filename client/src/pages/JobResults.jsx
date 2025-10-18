@@ -34,7 +34,7 @@ const JobResults = () => {
   }, [resumeData]);
 
   if (!resumeData) {
-    return <p>No resume data found. Please upload again.</p>;
+    return <NoJobs/>
   }
 
   if (loading) {

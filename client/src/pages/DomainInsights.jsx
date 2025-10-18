@@ -18,6 +18,7 @@ import {
 import { analyzeResume } from "../api/resumeApi";
 import Loader from "../components/Loader";
 import NoJobs from "../components/NoJobs";
+import NoInsights from "../components/NoInsights";
 import { useResume } from "../context/ResumeContext";
 
 const DomainInsights = () => {
@@ -48,7 +49,7 @@ const DomainInsights = () => {
     fetchDomains();
   }, [resumeText]);
 
-  if (!resumeText) return <NoJobs />;
+  if (!resumeText) return <NoInsights />;
   if (loading) return <Loader />;
   if (domains.length === 0)
     return (
