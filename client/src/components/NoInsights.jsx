@@ -7,6 +7,7 @@ const NoInsights = () => {
         {/* Icon */}
         <div className="inline-flex items-center justify-center w-24 h-24 bg-indigo-50 rounded-full mb-6">
           <svg
+            xmlns="http://www.w3.org/2000/svg"
             className="w-12 h-12 text-indigo-400"
             fill="none"
             stroke="currentColor"
@@ -16,14 +17,16 @@ const NoInsights = () => {
               strokeLinecap="round"
               strokeLinejoin="round"
               strokeWidth={2}
-              d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+              d="M12 3v1m0 16v1m-4.244-3.03a4 4 0 1 1 8.488 0 5.421 5.421 0 0 0-8.488 0zM7.5 12a4.5 4.5 0 1 1 9 0c0 1.5-1.5 3-1.5 3H9s-1.5-1.5-1.5-3z"
             />
           </svg>
         </div>
 
         {/* Message */}
-        <h2 className="text-2xl font-bold text-gray-800 mb-3">No Insights Found</h2>
-        <p className="text-white  mb-6 leading-relaxed">
+        <h2 className="text-2xl font-bold text-gray-800 mb-3">
+          No Insights Found
+        </h2>
+        <p className="text-gray-700 mb-6 leading-relaxed">
           We couldn't find any insights for now
         </p>
 
