@@ -34,8 +34,8 @@ const Loader = () => {
         <div className="flex items-center gap-3">
           <div className="w-6 h-6 border-3 border-indigo-600 border-t-transparent rounded-full animate-spin"></div>
           <div className="flex items-center gap-1">
-            <p className="text-white text-lg font-medium">{messages[currentMessage]}</p>
-            <div className="flex gap-1 text-white">
+            <p className="text-indigo-600 text-lg font-medium">{messages[currentMessage]}</p>
+            <div className="flex gap-1 text-indigo-600">
               <span className="animate-bounce" style={{ animationDelay: '0ms' }}>.</span>
               <span className="animate-bounce" style={{ animationDelay: '150ms' }}>.</span>
               <span className="animate-bounce" style={{ animationDelay: '300ms' }}>.</span>
