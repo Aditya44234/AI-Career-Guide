@@ -12,7 +12,8 @@ const app = express();
 // Define allowed origins
 const allowedOrigins = [
     "http://localhost:5173",
-    "https://ai-career-guide-7e48.onrender.com"
+    "https://ai-career-guide-7e48.onrender.com",
+    "https://ai-career-guide-jet.vercel.app/"
 ];
 
 // Setup CORS with options

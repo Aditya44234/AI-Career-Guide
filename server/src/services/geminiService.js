@@ -63,7 +63,7 @@ const mapResumeDomains = async (resumeText) => {
     const model = "gemini-2.5-flash";  // Free tier model with higher quota availability [web:18][web:19]
     const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
 
-
+a
     // Validate resumeText
     if (!resumeText || typeof resumeText !== 'string') {
         console.error("❌ Invalid resumeText:", typeof resumeText, resumeText);
