@@ -2,9 +2,20 @@ const axios = require("axios");
 
 // Extract role, skills, interests
 const extractResumeInsights = async (resumeText) => {
+
+    //  Model 1 :--
+    // const apiKey = process.env.GEMINI_API_KEY;
+    // const model = "gemini-2.0-flash"; // You can switch this to gemini-pro or others
+    // const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
+
+
+    //  Model 2 :--
     const apiKey = process.env.GEMINI_API_KEY;
-    const model = "gemini-2.0-flash"; // You can switch this to gemini-pro or others
+    const model = "gemini-2.5-flash";  // Free tier model with higher quota availability [web:18][web:19]
     const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
+
+
+
 
     const prompt = `
 You are an expert career assistant. Given the following resume text, extract three things:
@@ -47,9 +58,11 @@ ${resumeText}
 
 // Map domains to related skills
 const mapResumeDomains = async (resumeText) => {
+    //  Model 2 :--
     const apiKey = process.env.GEMINI_API_KEY;
-    const model = "gemini-2.0-flash";
+    const model = "gemini-2.5-flash";  // Free tier model with higher quota availability [web:18][web:19]
     const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
+
 
     // Validate resumeText
     if (!resumeText || typeof resumeText !== 'string') {
