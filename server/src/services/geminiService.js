@@ -38,7 +38,14 @@ ${resumeText}
 
     const response = await axios.post(
         url,
-        { contents: [{ parts: [{ text: prompt }] }] },
+        {
+            contents: [{ parts: [{ text: prompt }] }],
+            generationConfig: {
+                temperature: 0.1,
+                maxOutputTokens: 4096,
+                responseMimeType: "application/json", // Force JSON output
+            }
+        },
         { headers: { "Content-Type": "application/json" } }
     );
 
@@ -46,13 +53,14 @@ ${resumeText}
     if (!raw) throw new Error("No response from Gemini");
 
     raw = raw.trim().replace(/^```json\s*|\s*```$/g, "");
-    console.log("AI response (insights):", raw);
+    console.log("✅ AI response (insights):", raw);
 
     try {
         return JSON.parse(raw);
     } catch (err) {
-        console.error("Failed to parse Gemini response:", raw);
-        throw new Error("Gemini returned invalid JSON");
+        console.error("❌ Failed to parse Gemini response:", raw);
+        console.error("Parse error:", err.message);
+        throw new Error("Gemini returned invalid JSON: " + err.message);
     }
 };
 
@@ -63,7 +71,7 @@ const mapResumeDomains = async (resumeText) => {
     const model = "gemini-2.5-flash";  // Free tier model with higher quota availability [web:18][web:19]
     const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
 
-a
+
     // Validate resumeText
     if (!resumeText || typeof resumeText !== 'string') {
         console.error("❌ Invalid resumeText:", typeof resumeText, resumeText);
@@ -120,7 +128,8 @@ ${resumeText}
                     temperature: 0.1,
                     topK: 1,
                     topP: 0.8,
-                    maxOutputTokens: 2048,
+                    maxOutputTokens: 8192, // Increased from 2048 to prevent truncation
+                    responseMimeType: "application/json", // Force JSON output
                 }
             },
             { headers: { "Content-Type": "application/json" } }
@@ -147,14 +156,52 @@ ${resumeText}
 
         console.log("✅ Cleaned AI response:", raw);
 
+        // Validate JSON completeness before parsing
+        if (!raw.startsWith('[') || !raw.endsWith(']')) {
+            console.error("❌ Incomplete JSON - missing array brackets");
+            console.error("Response preview:", raw.substring(0, 200));
+            return [];
+        }
+
         // Parse JSON
         let parsedData;
         try {
             parsedData = JSON.parse(raw);
-        } catch (parseError) {
-            console.error("❌ JSON parse error:", parseError.message);
-            console.error("❌ Raw response was:", raw);
-            return [];
+        } catch (e) {
+            console.error("❌ JSON Parse Error:", e.message);
+            console.error("Raw response (first 500 chars):", raw.substring(0, 500));
+            
+            // Advanced fallback: Try to repair common JSON issues
+            try {
+                // Remove trailing commas
+                let repaired = raw.replace(/,(\s*[}\]])/g, '$1');
+                
+                // Try to close incomplete strings
+                const openQuotes = (repaired.match(/"/g) || []).length;
+                if (openQuotes % 2 !== 0) {
+                    repaired += '"';
+                }
+                
+                // Try to close incomplete arrays/objects
+                const openBrackets = (repaired.match(/\[/g) || []).length;
+                const closeBrackets = (repaired.match(/\]/g) || []).length;
+                for (let i = 0; i < openBrackets - closeBrackets; i++) {
+                    repaired += ']';
+                }
+                
+                const openBraces = (repaired.match(/\{/g) || []).length;
+                const closeBraces = (repaired.match(/\}/g) || []).length;
+                for (let i = 0; i < openBraces - closeBraces; i++) {
+                    repaired += '}';
+                }
+                
+                console.log("🔧 Attempting to parse repaired JSON...");
+                parsedData = JSON.parse(repaired);
+                console.log("✅ Successfully parsed repaired JSON");
+            } catch (repairError) {
+                console.error("❌ Repair attempt failed:", repairError.message);
+                return [];
+            }
         }
 
         // Validate parsedData is an array
